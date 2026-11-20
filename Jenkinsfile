@@ -11,29 +11,36 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building Python application'
-                bat 'python -m py_compile app.py'
+                bat '''
+                    python --version
+                    python -m py_compile app.py
+                '''
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Executing automated tests'
-                bat 'python -m unittest app'
+                echo 'Running tests'
+                bat '''
+                    python -m unittest discover
+                '''
             }
         }
 
         stage('Run Application') {
             steps {
-                bat 'python app.py'
+                echo 'Running Python application'
+                bat '''
+                    python app.py
+                '''
             }
         }
     }
 
     post {
         success {
-            echo 'CI pipeline completed successfully'
+            echo 'CI pipeline completed successfully!'
         }
-
         failure {
             echo 'CI pipeline failed'
         }
