@@ -1,1 +1,1 @@
-print("Go to Hell!!")
+print("Go to Heaven!!")
